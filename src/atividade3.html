@@ -27,7 +27,23 @@
     <script src="https://js.arcgis.com/4.23/"></script>
 
     <script>
-      require(["esri/views/MapView", "esri/WebMap", "esri/widgets/Search"], (MapView, WebMap, Search) => {
+      require([
+        "esri/views/MapView",
+        "esri/WebMap",
+        "esri/widgets/Search",
+        "esri/widgets/Print",
+        "esri/widgets/Home",
+        "esri/widgets/Legend",
+        "esri/widgets/LayerList",
+      ], (
+        MapView,
+        WebMap,
+        Search,
+        Print,
+        Home,
+        Legend,
+        LayerList
+      ) => {
         /************************************************************
          * Creates a new WebMap instance. A WebMap must reference
          * a PortalItem ID that represents a WebMap saved to
@@ -39,8 +55,8 @@
         const webmap = new WebMap({
           portalItem: {
             // autocasts as new PortalItem()
-            id: "6c41567664af4cb7ad698179b450963b"
-          }
+            id: "aa5dd9e8cf8147bf81f5adb1ef244598",
+          },
         });
 
         /************************************************************
@@ -48,16 +64,51 @@
          ************************************************************/
         const view = new MapView({
           map: webmap,
-          container: "viewDiv"
+          container: "viewDiv",
         });
-		const searchWidget = new Search({
-          view: view
+
+        const searchWidget = new Search({
+          view: view,
         });
-		
-		  // Add the search widget to the top right corner of the view
+
+        const printWidget = new Print({
+          view: view,
+        });
+
+        const homeWidget = new Home({
+          view: view,
+        });
+
+        const legendWidget = new Legend({
+          view: view,
+        });
+
+        const layerListWidget = new LayerList({
+          view: view,
+        });
+
+        // Add the search widget to the top right corner of the view
+        view.ui.add(homeWidget, {
+          position: "top-left",
+        });
+
         view.ui.add(searchWidget, {
-          position: "top-right"
+          position: "top-right",
         });
+
+        // Add the other widgets to the top left corner of the view
+        view.ui.add(printWidget, {
+          position: "top-left",
+        });
+
+        view.ui.add(layerListWidget, {
+          position: "top-right",
+        });
+
+        view.ui.add(legendWidget, {
+          position: "top-right",
+        });
+
       });
     </script>
   </head>

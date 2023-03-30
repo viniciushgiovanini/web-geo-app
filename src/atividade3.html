@@ -35,6 +35,7 @@
         "esri/widgets/Home",
         "esri/widgets/Legend",
         "esri/widgets/LayerList",
+        "esri/widgets/BasemapToggle",
       ], (
         MapView,
         WebMap,
@@ -42,7 +43,8 @@
         Print,
         Home,
         Legend,
-        LayerList
+        LayerList,
+        BasemapToggle
       ) => {
         /************************************************************
          * Creates a new WebMap instance. A WebMap must reference
@@ -87,6 +89,11 @@
           view: view,
         });
 
+        const basemapToggleWidget = new BasemapToggle({
+          view: view,
+          nextBasemap: "satellite",
+        });
+
         // Add the search widget to the top right corner of the view
         view.ui.add(homeWidget, {
           position: "top-left",
@@ -109,6 +116,9 @@
           position: "top-right",
         });
 
+        view.ui.add(basemapToggleWidget, {
+          position: "top-right",
+        });
       });
     </script>
   </head>
